@@ -1,26 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --foreground: #0F172A;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  opacity: 1;
+}
+
+/* ── Print / PDF styles ── */
+@media print {
+  /* Hide everything that shouldn't print */
+  header,
+  footer,
+  nav,
+  input[type="range"],
+  button:not(.print-keep),
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: white;
+    color: black;
+    font-size: 12px;
+  }
+
+  /* Reset colours for print */
+  .bg-\[\#0F172A\],
+  .bg-slate-50,
+  .bg-emerald-50,
+  .bg-amber-50 {
+    background: white !important;
+    border: 1px solid #e2e8f0 !important;
+  }
+
+  .text-white {
+    color: black !important;
+  }
+
+  /* Watermark / branding */
+  main::before {
+    content: 'Figures.Finance — figures.finance';
+    display: block;
+    text-align: center;
+    font-size: 11px;
+    color: #64748b;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 8px;
+  }
+
+  /* Tables print cleanly */
+  table {
+    page-break-inside: auto;
+  }
+  tr {
+    page-break-inside: avoid;
+  }
+  thead {
+    display: table-header-group;
+  }
+
+  /* Charts hidden in print — tables carry the data */
+  .recharts-wrapper {
+    display: none !important;
+  }
+
+  /* Force single column layout */
+  .grid {
+    display: block !important;
+  }
+
+  .lg\:col-span-1,
+  .lg\:col-span-2 {
+    width: 100% !important;
+  }
 }
